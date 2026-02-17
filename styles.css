@@ -1,0 +1,73 @@
+/*
+ * CivilityAI — Stylesheet
+ *
+ * Blur effects and toxicity badge styling for YouTube and Instagram comments.
+ */
+
+/* ── Blur ─────────────────────────────────────────── */
+
+.civility-blur {
+  filter: blur(6px);
+  transition: filter 0.2s ease;
+  cursor: pointer;
+}
+
+.civility-blur:hover {
+  filter: blur(0px);
+}
+
+/* ── Badge base ───────────────────────────────────── */
+
+.civility-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  vertical-align: middle;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Badge variants ───────────────────────────────── */
+
+.civility-badge--safe {
+  background-color: #2e7d32; /* green */
+}
+
+.civility-badge--mild {
+  background-color: #f9a825; /* yellow / amber */
+  color: #333;
+}
+
+.civility-badge--toxic {
+  background-color: #c62828; /* red */
+}
+
+/* ── Instagram-specific adjustments ───────────────── */
+
+/*
+ * Instagram uses a tighter comment layout. Badges need to
+ * sit comfortably beside comment text without breaking the
+ * line or overlapping adjacent elements.
+ */
+.instagram .civility-badge,
+[class*="instagram"] .civility-badge {
+  font-size: 11px;
+  padding: 1px 5px;
+  margin-left: 6px;
+}
+
+/*
+ * On Instagram, blurred text should not break the parent
+ * flex container layout.
+ */
+www\.instagram\.com .civility-blur,
+li .civility-blur {
+  display: inline;
+}
