@@ -45,7 +45,7 @@ CivilityAI is a Chrome Extension that detects toxic comments on **YouTube** and 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/CivilityAI.git
+git clone https://github.com/swapmali/CivilityAI.git
 cd CivilityAI
 ```
 
