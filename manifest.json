@@ -3,14 +3,16 @@
   "name": "CivilityAI",
   "version": "1.1.0",
   "description": "Bring civility back to the internet. Detects and blurs toxic comments on YouTube and Instagram using AI toxicity classification.",
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "host_permissions": [
     "https://www.youtube.com/*",
     "https://www.instagram.com/*",
     "https://api.openai.com/*"
   ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "CivilityAI — Toggle on/off"
+  },
   "background": {
     "service_worker": "background.js",
     "type": "module"

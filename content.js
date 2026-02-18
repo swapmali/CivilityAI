@@ -139,11 +139,35 @@
   console.log(`[CivilityAI] Platform detected: ${PLATFORM}`);
 
   /* ================================================================
+   * Enable/disable state (synced with popup via chrome.storage)
+   * ================================================================ */
+  const STORAGE_KEY_ENABLED = "civility_enabled";
+  let isEnabled = true;
+
+  function removeAllOverlays() {
+    document.querySelectorAll(".civility-badge").forEach(function (el) { el.remove(); });
+    document.querySelectorAll(".civility-blur").forEach(function (el) { el.classList.remove("civility-blur"); });
+    document.querySelectorAll("[" + PROCESSED_ATTR + "]").forEach(function (el) { el.removeAttribute(PROCESSED_ATTR); });
+  }
+
+  chrome.storage.onChanged.addListener(function (changes, areaName) {
+    if (areaName !== "local" || !changes[STORAGE_KEY_ENABLED]) return;
+    const newValue = changes[STORAGE_KEY_ENABLED].newValue;
+    isEnabled = newValue !== false;
+    if (!isEnabled) {
+      removeAllOverlays();
+    } else {
+      scanForComments(document.body);
+    }
+  });
+
+  /* ================================================================
    * Processing queue & dedup
    * ================================================================ */
   const processingSet = new Set();
 
   function processComment(commentEl) {
+    if (!isEnabled) return;
     if (isProcessed(commentEl)) return;
 
     const rawText = commentEl.innerText;
@@ -239,20 +263,28 @@
   /* ================================================================
    * Bootstrap
    * ================================================================ */
-  function init() {
+  function startObserving() {
+    if (!isEnabled) return;
     scanForComments(document.body);
+  }
 
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
+  function init() {
+    chrome.storage.local.get(STORAGE_KEY_ENABLED, function (result) {
+      isEnabled = result[STORAGE_KEY_ENABLED] !== false;
+
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
+      urlObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
+      startObserving();
+      console.log("[CivilityAI] Content script initialized on " + PLATFORM + " (" + (isEnabled ? "enabled" : "disabled") + ").");
     });
-
-    urlObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    console.log(`[CivilityAI] Content script initialized on ${PLATFORM}.`);
   }
 
   if (document.readyState === "loading") {

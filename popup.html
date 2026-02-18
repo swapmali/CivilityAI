@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CivilityAI</title>
+  <style>
+    body {
+      width: 220px;
+      padding: 14px 16px;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      color: #24292f;
+      background: #fff;
+    }
+    .header {
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #1f2328;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .label {
+      flex: 1;
+    }
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: #cfd4da;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle:hover {
+      background: #b8bdc4;
+    }
+    .toggle[aria-pressed="true"] {
+      background: #238636;
+    }
+    .toggle[aria-pressed="true"]:hover {
+      background: #2ea043;
+    }
+    .toggle::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .toggle[aria-pressed="true"]::after {
+      transform: translateX(20px);
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #57606a;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">CivilityAI</div>
+  <div class="row">
+    <span class="label">Enable on YouTube & Instagram</span>
+    <button type="button" class="toggle" id="toggle" role="switch" aria-label="Enable or disable CivilityAI" aria-pressed="true"></button>
+  </div>
+  <div class="status" id="status">On — comments are being classified.</div>
+  <script src="popup.js"></script>
+</body>
+</html>

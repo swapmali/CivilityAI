@@ -18,6 +18,7 @@ CivilityAI is a Chrome Extension that detects toxic comments on **YouTube** and 
 - **Dynamic comment detection** — new comments loaded via infinite scroll are picked up automatically (MutationObserver).
 - **SPA-aware** — handles YouTube and Instagram single-page navigation seamlessly.
 - **Secure by design** — your OpenAI API key is stored in a local file that is git-ignored.
+- **Enable/disable toggle** — click the extension icon to turn toxicity detection on or off; state is saved and applies to all open tabs.
 
 ---
 
@@ -71,6 +72,8 @@ export const OPENAI_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
 Navigate to any YouTube video or Instagram post with comments. CivilityAI will automatically detect the platform, classify visible comments, and apply overlays.
 
+**Turning detection on or off:** Click the CivilityAI icon in the toolbar to open the popup. Use the **Enable on YouTube & Instagram** switch to turn toxicity detection on or off. When off, existing badges and blur are removed and no new comments are classified until you turn it back on.
+
 ---
 
 ## Architecture
@@ -114,6 +117,7 @@ Both platforms share the same classification pipeline (background worker, cache,
 | `utils.js` | Hash generation, debounce, text normalization |
 | `styles.css` | Blur transition and badge styling (platform-aware) |
 | `config.local.js` | **Local-only** — your OpenAI API key |
+| `popup.html` / `popup.js` | Extension popup — enable/disable toggle and stored state |
 
 ---
 

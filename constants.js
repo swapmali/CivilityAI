@@ -19,3 +19,6 @@ export const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 
 /** OpenAI model identifier */
 export const MODEL_NAME = "gpt-4o-mini";
+
+/** Storage key for the extension enabled/disabled state (default: true) */
+export const STORAGE_KEY_ENABLED = "civility_enabled";
